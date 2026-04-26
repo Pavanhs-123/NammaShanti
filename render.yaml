@@ -17,8 +17,9 @@ services:
         value: "8080"
 
   # ─── Frontend: Vite / React Static Site ────────────────────────────────────
-  - type: static
+  - type: web
     name: nammashanti-frontend
+    runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     rootDir: ./frontend
