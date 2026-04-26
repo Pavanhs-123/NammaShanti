@@ -5,7 +5,7 @@ services:
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    plan: free
+    plan: starter
     envVars:
       - key: GEMINI_API_KEY
         sync: false          # Enter value in Render dashboard
@@ -17,13 +17,11 @@ services:
         value: "8080"
 
   # ─── Frontend: Vite / React Static Site ────────────────────────────────────
-  - type: web
+  - type: static
     name: nammashanti-frontend
-    runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     rootDir: ./frontend
-    plan: free
     envVars:
       - key: VITE_GOOGLE_MAPS_API_KEY
         sync: false
