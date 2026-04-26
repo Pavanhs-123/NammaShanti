@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NammaShanti Incident Report Contract",
+  "description": "The exact JSON structure outputted by the Gemini AI Engine after analyzing an incoming message.",
+  "type": "object",
+  "properties": {
+    "original_text": {
+      "type": "string",
+      "description": "The raw message text received from the citizen (Kannada, Hindi, English, etc.)."
+    },
+    "translated_text": {
+      "type": "string",
+      "description": "The message translated into standard English."
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "pin_code": {
+          "type": "string",
+          "description": "The 6-digit PIN code extracted from the text, if any."
+        },
+        "area_name": {
+          "type": "string",
+          "description": "The specific area or landmark mentioned (e.g., 'Electronic City', 'Majestic')."
+        },
+        "lat": {
+          "type": "number",
+          "description": "Approximate latitude of the location in Bengaluru."
+        },
+        "lng": {
+          "type": "number",
+          "description": "Approximate longitude of the location in Bengaluru."
+        }
+      }
+    },
+    "threat_score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Legacy threat score, now represents the Gemini Semantic Score."
+    },
+    "panic_index": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "The definitive Panic Index combining Static Score, Velocity Score, and Semantic Score."
+    },
+    "velocity_score": {
+      "type": "integer",
+      "description": "Score based on frequency of similar messages in the last 15 minutes."
+    },
+    "static_score": {
+      "type": "integer",
+      "description": "Score based on the number of hyper-local trigger words."
+    },
+    "triggers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords or specific triggers identified (e.g., 'riot', 'water mafia', 'migrant clashes', 'mob')."
+    },
+    "is_actionable": {
+      "type": "boolean",
+      "description": "True if the message contains enough specific information (location + threat) to warrant intervention."
+    },
+    "draft_response": {
+      "type": "string",
+      "description": "A Gemini-drafted 'Myth vs. Fact' clarification in English, ready to be translated and broadcast via TTS."
+    }
+  },
+  "required": [
+    "original_text",
+    "translated_text",
+    "threat_score",
+    "panic_index",
+    "velocity_score",
+    "static_score",
+    "triggers",
+    "is_actionable",
+    "draft_response"
+  ]
+}

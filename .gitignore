@@ -1,0 +1,19 @@
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Python
+venv/
+__pycache__/
+*.pyc
+firebase-service-account.json
+
+# OS
+.DS_Store

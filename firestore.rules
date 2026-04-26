@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // For the hackathon prototype, we allow open read/write to the incidents collection.
+    // In production, you would restrict writes to the backend Admin SDK and reads to authenticated police officers.
+    match /incidents/{document=**} {
+      allow read, write: if true;
+    }
+  }
+}

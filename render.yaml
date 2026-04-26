@@ -1,0 +1,45 @@
+services:
+  # ─── Backend: Python Telegram Bot ──────────────────────────────────────────
+  - type: web
+    name: nammashanti-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false          # Enter value in Render dashboard
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false          # Enter value in Render dashboard
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false          # Paste the entire JSON content as a single-line string
+      - key: PORT
+        value: "8080"
+
+  # ─── Frontend: Vite / React Static Site ────────────────────────────────────
+  - type: web
+    name: nammashanti-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    rootDir: ./frontend
+    plan: free
+    envVars:
+      - key: VITE_GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: VITE_FIREBASE_API_KEY
+        sync: false
+      - key: VITE_FIREBASE_AUTH_DOMAIN
+        sync: false
+      - key: VITE_FIREBASE_PROJECT_ID
+        sync: false
+      - key: VITE_FIREBASE_STORAGE_BUCKET
+        sync: false
+      - key: VITE_FIREBASE_MESSAGING_SENDER_ID
+        sync: false
+      - key: VITE_FIREBASE_APP_ID
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

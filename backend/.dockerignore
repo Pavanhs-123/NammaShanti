@@ -1,0 +1,14 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.DS_Store
+firebase-service-account.json
+temp_video_*.mp4
+dummy.mp4
+test_*.py
+trigger_mass_broadcast.py
+run_test_cases.py
+test_broadcast.py
